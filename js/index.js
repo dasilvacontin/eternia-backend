@@ -6,6 +6,8 @@ var io = require('socket.io')(8080)
 var Map = require('./Map')
 var map = new Map()
 
+var WAIT_TIME = 500
+
 io.on('connection', function (socket) {
 
   console.log('user connected', socket.id)
@@ -19,11 +21,17 @@ io.on('connection', function (socket) {
   socket.emit('updates', map.getUpdates())
   map.cleanUpdates()
 
+  var lastMovementDoneAt = +new Date
+
   socket.on('movePlayer', function (direction) {
-    map.playerMoveDirection(player, direction)
-    map.addUpdatesOfNearbyCells(player)
-    io.emit('updates', map.getUpdates())
-    map.cleanUpdates()
+    var now = +new Date
+    if (now - lastMovementDoneAt >= WAIT_TIME) {
+      lastMovementDoneAt = now
+      map.playerMoveDirection(player, direction)
+      map.addUpdatesOfNearbyCells(player)
+      io.emit('updates', map.getUpdates())
+      map.cleanUpdates()
+    } 
   })
 
   socket.on('attackPlayer', function () {
