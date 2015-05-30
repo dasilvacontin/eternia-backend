@@ -18,6 +18,7 @@ Map.prototype.getCellAt = function getCellAt (x, y) {
 }
 
 Map.prototype.getCellWithId = function (cellId) {
+  if (cellId == null) throw new Error('Map#getCellWithId with null cellId')
   var cell = this.cells[cellId]
   if (cell) {
     return cell
