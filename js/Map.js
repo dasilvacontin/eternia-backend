@@ -77,4 +77,19 @@ Map.prototype.cleanUpdates = function () {
   return
 }
 
+Map.prototype.addUpdatesOfNearbyCells = function(player) {
+  var currentPosition = player.getPositionObject()
+  for (var x = currentPosition.x - 3; x <= currentPosition.x + 3; x++) {
+    for (var y = currentPosition.y - 3; y <= currentPosition.x +3; y++) {
+      var cell = this.getCellAt(x, y)
+      this.updates.cells[cell.getId()] = cell
+      var playerId = cell.getPlayerId()
+      if (playerId) {
+        var player = this.getPlayer(playerId)
+        this.updates.players[playerId] = player
+      }
+    }
+  }
+}
+
 module.exports = Map
