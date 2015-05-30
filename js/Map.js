@@ -13,6 +13,7 @@ function Map () {
 }
 
 Map.prototype.getCellAt = function getCellAt (x, y) {
+  if (x == null || y == null) throw new Error('Map#getCellAt incorrect arguments')
   var cellId = x + 'x' + y
   return this.getCellWithId(cellId)
 }
@@ -24,7 +25,7 @@ Map.prototype.getCellWithId = function (cellId) {
     return cell
   }
 
-  cell = new Cell()
+  cell = new Cell(cellId)
   this.cells[cellId] = cell
   return cell
 }
@@ -43,8 +44,11 @@ Map.prototype.addPlayer = function (player) {
 }
 
 Map.prototype.setPlayerCell = function (player, cell) {
-  var oldCell = this.getCellAt(player.getCellId())
-  oldCell.setPlayerId(undefined)
+  var oldCellId = player.getCellId()
+  if (oldCellId) {
+    var oldCell = this.getCellWithId(oldCellId)
+    oldCell.setPlayerId(null)
+  }
   player.setCellId(cell.getId())
   cell.setPlayerId(player.getId())
 }
@@ -62,6 +66,7 @@ Map.prototype.playerMoveDirection = function (player, direction) {
     return
   }
   this.setPlayerCell(player, targetCell)
+  console.log(cell)
 
   this.updates.cells[cell.getId()] = cell
   this.updates.cells[targetCell.getId()] = targetCell
