@@ -1,3 +1,5 @@
+'use strict'
+
 var UP = 0
 var RIGHT = 1
 var DOWN = 2
