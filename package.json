@@ -1,0 +1,23 @@
+{
+  "name": "eternia-backend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dasilvacontin/eternia-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dasilvacontin/eternia-backend/issues"
+  },
+  "homepage": "https://github.com/dasilvacontin/eternia-backend",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5"
+  }
+}
