@@ -15,8 +15,13 @@ io.on('connection', function (socket) {
 
   socket.emit('whoami', player.getId())
 
+  map.addUpdatesOfNearbyCells(player)
+  socket.emit('updates', map.getUpdates())
+  map.cleanUpdates()
+
   socket.on('movePlayer', function (direction) {
     map.playerMoveDirection(player, direction)
+    map.addUpdatesOfNearbyCells(player)
     io.emit('updates', map.getUpdates())
     map.cleanUpdates()
   })
