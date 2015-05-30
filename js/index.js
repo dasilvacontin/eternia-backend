@@ -2,10 +2,13 @@
 
 var Player = require('./Player')
 
-var io = require('socket.io')()
-var map = require('Map')()
+var io = require('socket.io')(8080)
+var Map = require('./Map')
+var map = new Map()
 
 io.on('connection', function (socket) {
+
+  console.log('user connected')
 
   var player = new Player(socket.id)
   map.addPlayer(player)
@@ -16,7 +19,13 @@ io.on('connection', function (socket) {
     map.cleanUpdates()
   })
 
+  socket.on('attackPlayer', function () {
+
+  })
+
   socket.on('disconnect', function () {
 
   })
 })
+
+console.log('welcome to eternia')
