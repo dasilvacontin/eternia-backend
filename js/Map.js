@@ -3,6 +3,8 @@
 var Cell = require('./Cell')
 var util = require('./util')
 
+var DISTANCE = 10
+
 function Map () {
   this.cells = {}
   this.players = {}
@@ -19,7 +21,7 @@ Map.prototype.getCellAt = function getCellAt (x, y) {
 }
 
 Map.prototype.getCellWithId = function (cellId) {
-  if (cellId == null) throw new Error('Map#getCellWithId with null cellId')
+  if (cellId == null) throw new Error('Map#getCellWithId with null cellId=')
   var cell = this.cells[cellId]
   if (cell) {
     return cell
@@ -85,8 +87,8 @@ Map.prototype.cleanUpdates = function () {
 
 Map.prototype.addUpdatesOfNearbyCells = function(player) {
   var currentPosition = player.getPositionObject()
-  for (var x = currentPosition.x - 3; x <= currentPosition.x + 3; x++) {
-    for (var y = currentPosition.y - 3; y <= currentPosition.x +3; y++) {
+  for (var x = currentPosition.x - DISTANCE; x <= currentPosition.x + DISTANCE; x++) {
+    for (var y = currentPosition.y - DISTANCE; y <= currentPosition.x + DISTANCE; y++) {
       var cell = this.getCellAt(x, y)
       this.updates.cells[cell.getId()] = cell
       var playerId = cell.getPlayerId()
