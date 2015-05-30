@@ -1,5 +1,8 @@
 'use strict'
 
+var Cell = require('./Cell')
+var util = require('./util')
+
 function Map () {
   this.cells = {}
   this.players = {}
@@ -16,19 +19,21 @@ Map.prototype.getCellAt = function getCellAt (x, y) {
 
 Map.prototype.getCellWithId = function (cellId) {
   var cell = this.cells[cellId]
-  if (cell)
+  if (cell) {
     return cell
+  }
 
-  cell = new Cell ()
+  cell = new Cell()
   this.cells[cellId] = cell
   return cell
 }
 
 Map.prototype.addPlayer = function (player) {
   var x = 0
-  var cell
-  while (cell = this.getCellAt(x, 0) && !cell.isAvailable())
-    ++x
+  var cell = this.getCellAt(x, 0)
+  while (!cell.isAvailable()) {
+    cell = this.getCellAt(++x, 0)
+  }
 
   this.setPlayerCell(player, cell)
   this.players[player.getId()] = player
@@ -52,20 +57,21 @@ Map.prototype.playerMoveDirection = function (player, direction) {
   var cell = this.getCellWithId(player.getCellId())
   var pos = cell.getPositionObject()
   var targetCell = this.getCellAt(pos.x + inc.x, pos.y + inc.y)
-  if (!targetCell.isAvailable())
+  if (!targetCell.isAvailable()) {
     return
+  }
   this.setPlayerCell(player, targetCell)
-  
-  this.updates.cells.(cell.getId()) = cell
-  this.updates.cells.(targetCell.getId()) = targetCell
-  this.updates.players.(player.getId()) = player
+
+  this.updates.cells[cell.getId()] = cell
+  this.updates.cells[targetCell.getId()] = targetCell
+  this.updates.players[player.getId()] = player
 }
 
-Map.prototype.getUpdates = function() {
+Map.prototype.getUpdates = function () {
   return this.updates
 }
 
-Map.prototype.cleanUpdates = function() {
+Map.prototype.cleanUpdates = function () {
   this.updates.cells = {}
   this.updates.players = {}
   return

@@ -1,11 +1,11 @@
-UP = 0
-RIGHT = 1
-DOWN = 2
-LEFT = 3
+var UP = 0
+var RIGHT = 1
+var DOWN = 2
+var LEFT = 3
 
 var util = {}
 util.getIncFromDirection = function (direction) {
-  var inc = {x: 0, y:0}
+  var inc = {x: 0, y: 0}
   switch (direction) {
 
     case UP:
