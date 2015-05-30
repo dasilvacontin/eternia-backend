@@ -18,7 +18,7 @@ io.on('connection', function (socket) {
   socket.emit('whoami', player.getId())
 
   map.addUpdatesOfNearbyCells(player)
-  socket.emit('updates', map.getUpdates())
+  io.emit('updates', map.getUpdates())
   map.cleanUpdates()
 
   var lastMovementDoneAt = +new Date
@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
       map.addUpdatesOfNearbyCells(player)
       io.emit('updates', map.getUpdates())
       map.cleanUpdates()
-    } 
+    }
   })
 
   socket.on('attackPlayer', function () {
