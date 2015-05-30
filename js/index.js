@@ -8,10 +8,12 @@ var map = new Map()
 
 io.on('connection', function (socket) {
 
-  console.log('user connected')
+  console.log('user connected', socket.id)
 
   var player = new Player(socket.id)
   map.addPlayer(player)
+
+  socket.emit('whoami', player.getId())
 
   socket.on('movePlayer', function (direction) {
     map.playerMoveDirection(player, direction)
