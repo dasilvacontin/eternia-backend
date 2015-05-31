@@ -1,7 +1,7 @@
 'use strict'
 
 var Player = require('./Player')
-var UniqueId = require('unique-id')
+var uniqueId = require('unique-id')
 
 var io = require('socket.io')(8080)
 var Map = require('./Map')
@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
       player = new Player(socket.id, username)
       playerId = socket.id
       map.addPlayer(player)
-      playerToken = new UniqueId()
+      playerToken = uniqueId()
       hashTokenPerUser[playerToken] = playerId
     }
     if (player) {
