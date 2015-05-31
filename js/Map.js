@@ -66,7 +66,7 @@ Map.prototype.playerMoveDirection = function (player, direction) {
   var cell = this.getCellWithId(player.getCellId())
   var pos = cell.getPositionObject()
   var targetCell = this.getCellAt(pos.x + inc.x, pos.y + inc.y)
-  if (!targetCell.isAvailable()) {
+  if (!targetCell.isAvailable(player)) {
     return
   }
   this.setPlayerCell(player, targetCell)

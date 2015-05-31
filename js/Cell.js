@@ -29,7 +29,7 @@ function Cell (cellId) {
 }
 
 Cell.prototype.isAvailable = function (player) {
-  if (this.resource && this.resource.playerId === player.id)
+  if (player && this.resource && this.resource.playerId === player.id)
     return true
   return !this.playerId && !this.resource
 }
