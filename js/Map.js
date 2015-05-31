@@ -120,6 +120,7 @@ Map.prototype.playerAttacks = function(player, direction) {
 
   if (!targetPlayer.isAlive()) {
     targetCell.setPlayerId(null)
+    targetPlayer.setCellId(null)
   }
 }
 
