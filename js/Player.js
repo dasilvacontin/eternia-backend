@@ -32,4 +32,12 @@ Player.prototype.getCellId = function () {
   return this.cellId
 }
 
+Player.prototype.getHit = function() {
+	return Math.floor((Math.random() * 10) + 1)
+}
+
+Player.prototype.getHp = function() {
+	return this.hp
+}
+
 module.exports = Player

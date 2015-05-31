@@ -100,4 +100,27 @@ Map.prototype.addUpdatesOfNearbyCells = function(player) {
   }
 }
 
+Map.prototype.playerAttacks = function(player, direction) {
+  var inc = util.getIncFromDirection(direction)
+  var cell = this.getCellWithId(player.getCellId())
+  var pos = cell.getPositionObject()
+  var targetCell = this.getCellAt(pos.x + inc.x, pos.y + inc.y)
+  if (targetCell.isAvailable()) {
+    return
+  }
+
+  var totalDamage = player.getHit()
+  var targetPlayer = this.getPlayer(targetCell.getPlayerId())
+  targetPlayer.takeDamage(totalDamage)
+  /*
+  console.log('Attack from player ' + player.getId() + ' to player ' + targetPlayer.getId()
+    + ' with ' + totalDamage + 'points of damage. Hp of player ' + targetPlayer.getId()
+    + ' is ' + targetPlayer.getHp())
+  */
+
+  if (!targetPlayer.isAlive()) {
+    targetCell.setPlayerId(null)
+  }
+}
+
 module.exports = Map

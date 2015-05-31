@@ -34,12 +34,19 @@ io.on('connection', function (socket) {
     }
   })
 
-  socket.on('attackPlayer', function () {
-
+  socket.on('attackPlayer', function (direction) {
+    var now = +new Date
+    if (now - lastMovementDoneAt >= WAIT_TIME) {
+      lastMovementDoneAt = now
+      map.playerAttacks(player, direction)
+      map.addUpdatesOfNearbyCells(player)
+      io.emit('updates', map.getUpdates())
+      map.cleanUpdates()
+    }
   })
 
   socket.on('disconnect', function () {
-
+    console.log('user disconnected', socket.id)
   })
 })
 
