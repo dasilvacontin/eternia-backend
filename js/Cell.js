@@ -17,6 +17,14 @@ function Cell (cellId) {
         maxQty: qtyInitializer
       })
       break
+    case 1:
+      var qtyInitializer = Math.floor(Math.random() * 5 + 5)
+      this.setResource({
+        type: 'stone',
+        qty: qtyInitializer,
+        maxQty: qtyInitializer
+      })
+      break
   }
 }
 
