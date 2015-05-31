@@ -176,6 +176,17 @@ Map.prototype.playerBuilds = function(player, direction, building) {
         qty: 20
       }
       break
+    case 2:
+      resource = {
+        type: 'gate',
+        qty: 300,
+        maxQty: 300
+      }
+      cost = {
+        type: 'wood',
+        qty: 20
+      }
+      break
   }
   if (player.resources[cost.type] >= cost.qty) {
     targetCell.setResource(resource)
