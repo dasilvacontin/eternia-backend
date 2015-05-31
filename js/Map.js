@@ -151,13 +151,31 @@ Map.prototype.playerBuilds = function(player, direction, building) {
   }
 
   var resource
+  var cost
   switch (building) {
     case 0:
       resource = {
-        
+        type: 'house',
+        qty: 500 
       }
+      cost = {
+        type: 'stone',
+        qty: 40
+      }
+      break
+    case 1:
+      resource = {
+        type: 'fence',
+        qty: 300
+      }
+      cost = {
+        type: 'wood',
+        qty: 20
+      }
+      break
   }
-
+  targetCell.setResource(resource)
+  player.incResource(cost.type, -cost.qty)
 }
 
 module.exports = Map
