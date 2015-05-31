@@ -157,7 +157,8 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       resource = {
         type: 'house',
         qty: 500,
-        maxQty: 500
+        maxQty: 500,
+        playerId: player.getId()
       }
       cost = {
         type: 'stone',
