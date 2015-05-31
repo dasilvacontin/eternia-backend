@@ -29,14 +29,21 @@ io.on('connection', function (socket) {
       playerId = socket.id
       map.addPlayer(player)
       playerToken = new UniqueId()
+      hashTokenPerUser[playerToken] = playerId
     }
-    socket.emit('whoami', player && player.getId(), playerToken)
+    if (player) {
+      console.log('player linked to eternia', player.username)
+      socket.emit('whoami', player && player.getId(), playerToken)
+      map.addUpdatesOfNearbyCells(player)
+      io.emit('updates', map.getUpdates())
+      map.cleanUpdates()
+      listenToPlayerActions(socket, player)
+    }
   })
 
-  map.addUpdatesOfNearbyCells(player)
-  io.emit('updates', map.getUpdates())
-  map.cleanUpdates()
+})
 
+function listenToPlayerActions (socket, player) {
   var lastMovementDoneAt = +new Date
 
   socket.on('movePlayer', function (direction) {
@@ -70,6 +77,6 @@ io.on('connection', function (socket) {
     player.asleepSince = new Date
 
   })
-})
+}
 
 console.log('welcome to eternia')
