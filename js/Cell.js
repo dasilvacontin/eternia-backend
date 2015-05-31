@@ -5,10 +5,11 @@ var util = require('./util')
 function Cell (cellId) {
   this.id = cellId
   this.playerId = undefined
+  this.resource = undefined
 }
 
 Cell.prototype.isAvailable = function () {
-  return !this.playerId
+  return !this.playerId && !this.resource
 }
 
 Cell.prototype.getPositionObject = function () {
@@ -25,6 +26,10 @@ Cell.prototype.setPlayerId = function (playerId) {
 
 Cell.prototype.getPlayerId = function () {
   return this.playerId
+}
+
+Cell.prototype.setResource = function(resource) {
+	this.resource = resource
 }
 
 module.exports = Cell

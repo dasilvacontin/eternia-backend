@@ -28,6 +28,16 @@ Map.prototype.getCellWithId = function (cellId) {
   }
 
   cell = new Cell(cellId)
+  //Random creation of something
+  var structure = Math.floor((Math.random() * 100), 0)
+  switch (structure) {
+    case 0:
+      cell.setResource({type: 'wood', qty: Math.floor((Math.random() * 30, 10))})
+      break
+    case 1:
+      cell.setResource({type: 'berries', qty: Math.floor((Math.random() * 5, 1))})
+      break
+  }
   this.cells[cellId] = cell
   return cell
 }
