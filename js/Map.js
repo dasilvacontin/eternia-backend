@@ -133,6 +133,10 @@ Map.prototype.playerAttacks = function(player, direction) {
     if (!targetPlayer.isAlive()) {
       targetCell.setPlayerId(null)
       targetPlayer.setCellId(null)
+      for (var resource : targetPlayer.resources) {
+        player.incResource(resource.type, resource.qty
+          - Math.floor(Math.random() * (resource.qty/2) + 1))
+      }
     }
   }
 }
