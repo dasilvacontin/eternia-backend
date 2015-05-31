@@ -89,6 +89,8 @@ Map.prototype.cleanUpdates = function () {
 
 Map.prototype.addUpdatesOfNearbyCells = function(player) {
   var currentPosition = player.getPositionObject()
+  if (!currentPosition)
+    return
   for (var x = currentPosition.x - DISTANCE; x <= currentPosition.x + DISTANCE; x++) {
     for (var y = currentPosition.y - DISTANCE; y <= currentPosition.x + DISTANCE; y++) {
       var cell = this.getCellAt(x, y)
