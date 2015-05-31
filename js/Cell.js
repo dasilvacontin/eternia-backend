@@ -7,7 +7,7 @@ function Cell (cellId) {
   this.playerId = undefined
   this.resource = undefined
 
-  var structure = Math.floor(Math.random() * 100)
+  var structure = Math.floor(Math.random() * 20)
   switch (structure) {
     case 0:
       var qtyInitializer = Math.floor(Math.random() * 20 + 10)

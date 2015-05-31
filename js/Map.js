@@ -154,7 +154,7 @@ Map.prototype.playerBuilds = function(player, direction, building) {
   switch (building) {
     case 0:
       resource = {
-        
+
       }
   }
 
