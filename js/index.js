@@ -71,8 +71,11 @@ function listenToPlayerActions (socket, player) {
     }
   })
 
-  socket.on('build', function (building) {
-
+  socket.on('build', function (building, direction) {
+    map.playerBuilds(player, direction, building)
+    map.addUpdatesOfNearbyCells(player)
+    io.emit('updates', map.getUpdates())
+    map.cleanUpdates()
   })
 
   socket.on('disconnect', function () {

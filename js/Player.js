@@ -9,7 +9,11 @@ function Player (playerId, username) {
   this.username = username
   this.hp = this.maxHP = 100
   this.cellId = undefined
-  this.resources = {}
+  this.resources = {
+  	wood: 0,
+  	stone: 0,
+  	food: 0
+  }
 }
 
 Player.prototype.isAlive = function () {

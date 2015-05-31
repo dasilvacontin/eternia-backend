@@ -133,12 +133,31 @@ Map.prototype.playerAttacks = function(player, direction) {
     if (!targetPlayer.isAlive()) {
       targetCell.setPlayerId(null)
       targetPlayer.setCellId(null)
-      for (var resource : targetPlayer.resources) {
-        player.incResource(resource.type, resource.qty
-          - Math.floor(Math.random() * (resource.qty/2) + 1))
+      var loot = targetPlayer.resources
+      for (var type in loot) {
+        player.incResource(type, loot[type] * (Math.random() * 0.2 + 0.8))
       }
     }
   }
+}
+
+Map.prototype.playerBuilds = function(player, direction, building) {
+  var inc = util.getIncFromDirection(direction)
+  var cell = this.getCellWithId(player.getCellId())
+  var pos = cell.getPositionObject()
+  var targetCell = this.getCellAt(pos.x + inc.x, pos.y + inc.y)
+  if (!targetCell.isAvailable()) {
+    return
+  }
+
+  var resource
+  switch (building) {
+    case 0:
+      resource = {
+        
+      }
+  }
+
 }
 
 module.exports = Map
