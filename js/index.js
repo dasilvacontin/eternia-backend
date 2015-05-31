@@ -88,3 +88,19 @@ function listenToPlayerActions (socket, player) {
 }
 
 console.log('welcome to eternia')
+
+function healPlayers () {
+  console.log('heal')
+  var players = map.players
+  for (var playerId in players) {
+    var player = players[playerId]
+    var cell
+    if (player.cellId) {
+      cell = map.getCellWithId(player.cellId)
+    }
+    if (cell && cell.resource && cell.resource.type === 'house') {
+      player.hp = Math.min(player.maxHP, player.hp + 1)
+    }
+  }
+}
+setInterval(healPlayers, 5000)

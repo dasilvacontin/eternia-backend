@@ -112,9 +112,10 @@ Map.prototype.playerAttacks = function(player, direction) {
   }
 
   var resource = targetCell.getResource()
-  if (resource && resource.type != 'house' && resource.type != 'fence' && resource.type != 'gate') {
+  if (resource) {
     console.log('Resource', resource)
-    player.incResource(resource.type, 1)
+    if (resource.type != 'house' && resource.type != 'fence' && resource.type != 'gate')
+      player.incResource(resource.type, 1)
     resource.qty--
     if (resource.qty > 0)
       targetCell.setResource(resource)
@@ -134,8 +135,9 @@ Map.prototype.playerAttacks = function(player, direction) {
       targetCell.setPlayerId(null)
       targetPlayer.setCellId(null)
       var loot = targetPlayer.resources
+      var lose = (Math.random() * 0.2 + 0.8)
       for (var type in loot) {
-        player.incResource(type, loot[type] * (Math.random() * 0.2 + 0.8))
+        player.incResource(type, Math.floor(loot[type] * lose))
       }
     }
   }
@@ -162,7 +164,7 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       }
       cost = {
         type: 'stone',
-        qty: 40
+        qty: 20
       }
       break
     case 1:
@@ -173,7 +175,7 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       }
       cost = {
         type: 'wood',
-        qty: 20
+        qty: 10
       }
       break
     case 2:
@@ -185,7 +187,7 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       }
       cost = {
         type: 'wood',
-        qty: 20
+        qty: 10
       }
       break
   }
