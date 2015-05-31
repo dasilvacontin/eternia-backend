@@ -112,14 +112,14 @@ Map.prototype.playerAttacks = function(player, direction) {
   }
 
   var resource = targetCell.getResource()
-  if (resource) {
+  if (resource && resource.type != 'house' && resource.type != 'fence' && resource.type != 'gate') {
     console.log('Resource', resource)
     player.incResource(resource.type, 1)
     resource.qty--
     if (resource.qty > 0)
       targetCell.setResource(resource)
     else targetCell.setResource(null)
-  } else {
+  } else if (!resource) {
 
     var totalDamage = player.getHit()
     var targetPlayer = this.getPlayer(targetCell.getPlayerId())
