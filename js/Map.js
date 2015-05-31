@@ -180,7 +180,8 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       resource = {
         type: 'gate',
         qty: 300,
-        maxQty: 300
+        maxQty: 300,
+        playerId: player.getId()
       }
       cost = {
         type: 'wood',
