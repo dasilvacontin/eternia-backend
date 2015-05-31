@@ -23,14 +23,14 @@ io.on('connection', function (socket) {
       playerId = hashTokenPerUser[token]
       player = map.getPlayer(playerId)
       playerToken = token
-    } else {
+    } else if (username) {
       username = username || 'n00b'
       player = new Player(socket.id, username)
       playerId = socket.id
       map.addPlayer(player)
       playerToken = new UniqueId()
     }
-    socket.emit('whoami', player.getId(), playerToken)
+    socket.emit('whoami', player && player.getId(), playerToken)
   })
 
   map.addUpdatesOfNearbyCells(player)
