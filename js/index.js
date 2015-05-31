@@ -38,6 +38,8 @@ io.on('connection', function (socket) {
       io.emit('updates', map.getUpdates())
       map.cleanUpdates()
       listenToPlayerActions(socket, player)
+    } else {
+      socket.emit('failedLogin')
     }
   })
 
