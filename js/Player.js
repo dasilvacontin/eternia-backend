@@ -2,10 +2,14 @@
 
 var util = require('./util')
 
-function Player (playerId, cellId) {
+var MAX_QTY = 200
+
+function Player (playerId, username) {
   this.id = playerId
+  this.username = username
   this.hp = this.maxHP = 100
-  this.cellId = cellId
+  this.cellId = undefined
+  this.resources = {}
 }
 
 Player.prototype.isAlive = function () {
@@ -38,6 +42,11 @@ Player.prototype.getHit = function() {
 
 Player.prototype.getHp = function() {
 	return this.hp
+}
+
+Player.prototype.incResource = function(type, qty) {
+	var current = this.resources[type] || 0
+	this.resources[type] = Math.min(MAX_QTY, current + qty)
 }
 
 module.exports = Player
