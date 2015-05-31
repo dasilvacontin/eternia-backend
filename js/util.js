@@ -31,6 +31,8 @@ util.getIncFromDirection = function (direction) {
 }
 
 util.getPositionFromId = function (id) {
+  if (!id)
+    return
   var coords = id.split('x')
   var pos = {
     x: Number(coords[0]),
