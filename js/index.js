@@ -23,6 +23,7 @@ io.on('connection', function (socket) {
       playerId = hashTokenPerUser[token]
       player = map.getPlayer(playerId)
       playerToken = token
+      player.asleepSince = null
     } else if (username) {
       username = username || 'n00b'
       player = new Player(socket.id, username)
@@ -77,7 +78,9 @@ function listenToPlayerActions (socket, player) {
   socket.on('disconnect', function () {
     console.log('user disconnected', socket.id)
     player.asleepSince = new Date
-
+    map.addUpdatesOfNearbyCells(player)
+    io.emit('updates', map.getUpdates())
+    map.cleanUpdates()
   })
 }
 
