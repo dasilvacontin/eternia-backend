@@ -156,7 +156,8 @@ Map.prototype.playerBuilds = function(player, direction, building) {
     case 0:
       resource = {
         type: 'house',
-        qty: 500 
+        qty: 500,
+        maxQty: 500
       }
       cost = {
         type: 'stone',
@@ -166,7 +167,8 @@ Map.prototype.playerBuilds = function(player, direction, building) {
     case 1:
       resource = {
         type: 'fence',
-        qty: 300
+        qty: 300,
+        maxQty: 300
       }
       cost = {
         type: 'wood',
@@ -174,8 +176,10 @@ Map.prototype.playerBuilds = function(player, direction, building) {
       }
       break
   }
-  targetCell.setResource(resource)
-  player.incResource(cost.type, -cost.qty)
+  if (player.resources[cost.type] >= cost.qty) {
+    targetCell.setResource(resource)
+    player.incResource(cost.type, -cost.qty)
+  }
 }
 
 module.exports = Map
